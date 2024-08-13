@@ -1,4 +1,4 @@
-"use client"
+
 
 /*COMPONENTES SHADCN*/ 
 import { Button } from "./_components/ui/button"
@@ -7,16 +7,25 @@ import { Badge } from "./_components/ui/badge"
 import { Card, CardContent } from "./_components/ui/card"
 import { Input } from "./_components/ui/input"
 
-/* MEUS COMPONENTS */
+/* MEUS COMPONENTeS */
 import Header from "./_components/header"
+
+
+/* PRISMA CLIENT */
+import { db } from "./_lib/prisma"
 
 import { SearchIcon } from "lucide-react"
 
 import Image from "next/image"
+import BarbershopItem from "./_components/barbershop-items"
 
 
 
-const Home = () => {
+const Home = async () => {
+  
+  const barbershops = await db.barbershop.findMany({})
+
+
   return (
     <div>
 
@@ -50,7 +59,10 @@ const Home = () => {
         </div>
 
         {/* AGENDAMENTO */}
-        <Card className="mt-6">
+        <h2 className="uppercase p-2 text-xs font-bold text-gray-400 mb-3 mt-6">
+          Agendamentos
+        </h2>
+        <Card className="">
           <CardContent className="flex justify-between p-0">
           {/* ESQUERDA */}
           <div className="flex flex-col gap-5 py-5 pl-5">
@@ -79,6 +91,13 @@ const Home = () => {
           </div>
           </CardContent>
         </Card>
+
+        <h2 className="uppercase p-2 text-xs font-bold text-gray-400 mb-3 mt-6">
+          Recomendados
+        </h2>
+        {barbershops.map((barbershop) => (
+          <BarbershopItem key={barbershop.id} barbershop={barbershop}/> 
+        ))}
       </div> 
     </div>
   )
