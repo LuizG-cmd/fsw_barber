@@ -2,28 +2,34 @@
 
 /*COMPONENTES SHADCN*/ 
 import { Button } from "./_components/ui/button"
-import { Avatar, AvatarImage } from "./_components/ui/avatar"
-import { Badge } from "./_components/ui/badge"
 import { Card, CardContent } from "./_components/ui/card"
 import { Input } from "./_components/ui/input"
 
-/* MEUS COMPONENTeS */
+/* MEUS COMPONENTES */
 import Header from "./_components/header"
+import BookingItem from "./_components/booking-item"
 
 
 /* PRISMA CLIENT */
 import { db } from "./_lib/prisma"
 
+/* LUCIDE ICONS */
 import { SearchIcon } from "lucide-react"
+
+
+/* CONSTANTS */
+import { quickSearchOption } from "./_constants/search"
 
 import Image from "next/image"
 import BarbershopItem from "./_components/barbershop-items"
 
 
 
+
 const Home = async () => {
   
   const barbershops = await db.barbershop.findMany({})
+  const popularBarbersshops = await db.barbershop.findMany({})
 
 
   return (
@@ -48,6 +54,17 @@ const Home = async () => {
           </Button>
         </div>
 
+
+        {/* BUSCA  RAPIDA*/}
+        <div className="flex gap-3 mt-6 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+          {quickSearchOption.map((option) => (
+               <Button className="gap-2" variant="secondary" key={option.title}>
+               <Image src={option.imageUrl} width={16} height={16} alt={option.title}  />
+               {option.title}
+             </Button>
+          ))}
+        </div>
+
         {/* IMAGEM */}
         <div className="relative mt-6 h-[150px] w-full">
           <Image
@@ -58,47 +75,35 @@ const Home = async () => {
           />
         </div>
 
-        {/* AGENDAMENTO */}
-        <h2 className="uppercase p-2 text-xs font-bold text-gray-400 mb-3 mt-6">
-          Agendamentos
-        </h2>
-        <Card className="">
-          <CardContent className="flex justify-between p-0">
-          {/* ESQUERDA */}
-          <div className="flex flex-col gap-5 py-5 pl-5">
-            <Badge className="w-fit">
-              Confirmado
-            </Badge>
-            <h3>
-              Corte de Cabelo
-            </h3>
-
-            <div className="flex items-center gap-2">
-            <Avatar className="h-6 w-6">
-              <AvatarImage src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.peterbe.com%2Fplog%2Frandom-avatars-in-django-python&psig=AOvVaw2BmQgstmUOVG7g2QerjaGG&ust=1723644864532000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPiyv8-T8ocDFQAAAAAdAAAAABAU">
-              </AvatarImage>
-            </Avatar>
-            <p>
-                Barbearia L.G
-            </p>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center justify-center px-5 border-l-2 border-solid">
-            <p className="text-sm">Agosto</p>
-            <p className="text-xl">18</p>
-            <p className="text-sm">19:15</p>
-          </div>
-          </CardContent>
-        </Card>
+        <BookingItem />
 
         <h2 className="uppercase p-2 text-xs font-bold text-gray-400 mb-3 mt-6">
           Recomendados
         </h2>
-        {barbershops.map((barbershop) => (
-          <BarbershopItem key={barbershop.id} barbershop={barbershop}/> 
-        ))}
+          <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {popularBarbersshops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop}/> 
+          ))}
+          </div>
+
+
+        <h2 className="uppercase p-2 text-xs font-bold text-gray-400 mb-3 mt-6">
+          Populares
+        </h2>
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {barbershops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop}/> 
+          ))}
+        </div>
       </div> 
+
+      <Card className="mt-3">
+          <CardContent className="py-6 p-5">
+              <p className="text-sm text-gray-400">
+              © 2023 Copyright <span className="font-bold">FSW Barber</span>
+              </p>
+          </CardContent>
+        </Card>
     </div>
   )
 }
