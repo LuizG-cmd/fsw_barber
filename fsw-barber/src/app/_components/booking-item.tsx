@@ -22,7 +22,7 @@ const BookingItem = () =>{
 
             <div className="flex items-center gap-2">
             <Avatar className="h-6 w-6">
-              <AvatarImage src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.peterbe.com%2Fplog%2Frandom-avatars-in-django-python&psig=AOvVaw2BmQgstmUOVG7g2QerjaGG&ust=1723644864532000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPiyv8-T8ocDFQAAAAAdAAAAABAU">
+              <AvatarImage src="">
               </AvatarImage>
             </Avatar>
             <p>
