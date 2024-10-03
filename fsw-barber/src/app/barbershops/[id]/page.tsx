@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import ServiceItem  from "@/app/_components/service-item"
+import PhoneItem from "@/app/_components/phone-item"
 
 interface BarbershopPageProps{
     params: {
@@ -26,9 +27,13 @@ const BarbershopPage =  async ({params}: BarbershopPageProps) => {
         return notFound()
     }
 
+    
+
     return (
     
     <div>
+
+        {/*Imagem*/}
         <div className="relative w-full h-[250px]">
             <Image alt={barbershop.name} src={barbershop?.imageUrl} fill className="object-cover"/>
 
@@ -43,6 +48,7 @@ const BarbershopPage =  async ({params}: BarbershopPageProps) => {
             </Button>
         </div>
 
+        {/*Titulo*/}
         <div className="p-5 border-b border-solid">
             <h1 className="font-bold text-xl mb-3">{barbershop?.name}</h1>  
             <div className="flex items-center gap-1 mb-2">
@@ -59,6 +65,7 @@ const BarbershopPage =  async ({params}: BarbershopPageProps) => {
             </div>
         </div>
 
+        {/*Descrição*/}
         <div className="border-b border-solid p-5 space-y-3">
             <h2 className="font-bold uppercase text-xs text-gray-400">Sobre nós</h2>
             <p className="text-sm">
@@ -66,13 +73,20 @@ const BarbershopPage =  async ({params}: BarbershopPageProps) => {
             </p>
         </div>  
 
-        <div className="p-5">
+        {/*Serviços*/}
+        <div className="space-y-3 border-b border-solid p-5">
             <h2 className="font-bold uppercase text-xs text-gray-400">Serviços</h2>
                 <div className="space-y-3">
                     {barbershop.services.map(service => <ServiceItem key={service.id} service={service} />)}
                 </div>
         </div>
 
+        {/*Contato*/}
+        <div className="p-5 space-y-3">
+            {barbershop.phones.map((phone) => (
+               <PhoneItem phone={phone} key={phone}/>
+            ))}
+        </div>
 
     </div>
 )}

@@ -2,8 +2,8 @@
 
 /*COMPONENTES SHADCN*/ 
 import { Button } from "./_components/ui/button"
-import { Card, CardContent } from "./_components/ui/card"
 import { Input } from "./_components/ui/input"
+
 
 /* MEUS COMPONENTES */
 import Header from "./_components/header"
@@ -12,6 +12,7 @@ import BookingItem from "./_components/booking-item"
 
 /* PRISMA CLIENT */
 import { db } from "./_lib/prisma"
+
 
 /* LUCIDE ICONS */
 import { SearchIcon } from "lucide-react"
@@ -54,7 +55,6 @@ const Home = async () => {
           </Button>
         </div>
 
-
         {/* BUSCA  RAPIDA*/}
         <div className="flex gap-3 mt-6 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
           {quickSearchOption.map((option) => (
@@ -96,14 +96,6 @@ const Home = async () => {
           ))}
         </div>
       </div> 
-
-      <Card className="mt-3">
-          <CardContent className="py-6 p-5">
-              <p className="text-sm text-gray-400">
-              © 2023 Copyright <span className="font-bold">FSW Barber</span>
-              </p>
-          </CardContent>
-        </Card>
     </div>
   )
 }
